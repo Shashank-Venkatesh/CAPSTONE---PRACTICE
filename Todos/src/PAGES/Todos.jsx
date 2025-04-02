@@ -1,63 +1,44 @@
-import React, { useState } from 'react';
-import '../STYLES/Todos.css';
+import { useState } from "react";
+import "../STYLES/Todos.css";
 
 const Todos = () => {
-  const [task, setTask] = useState('');
-  const [priority, setPriority] = useState('green');
+  const [task, setTask] = useState("");
+  const [priority, setPriority] = useState("High");
   const [tasks, setTasks] = useState([]);
 
-  const priorityEmojis = {
-    red: '🔴 High Priority',
-    orange: '🟠 Medium Priority',
-    green: '🟢 Low Priority'
-  };
-
-  const priorityOrder = {
-    red: 1,
-    orange: 2,
-    green: 3
-  };
-
-  const handleAddTask = () => {
-    if (task.trim()) {
-      const newTasks = [...tasks, { text: task, priority }];
-      newTasks.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
-      setTasks(newTasks);
-      setTask('');
-      setPriority('green');
-    }
-  };
-
-  const handleDeleteTask = (index) => {
-    const updatedTasks = tasks.filter((_, i) => i !== index);
-    setTasks(updatedTasks);
+  const addTask = () => {
+    if (!task.trim()) return;
+    setTasks([...tasks, { text: task, priority }]);
+    setTask("");
   };
 
   return (
-    <div className="container">
-      <div className="todos">
-        <h1>TASK TO BE COMPLETED</h1>
+    <div className="task-container">
+      <h2 className="task-header">My Tasks</h2>
+      <div className="task-input">
         <input
           type="text"
-          className="task-input"
-          placeholder='Enter Task'
+          placeholder="Add a new task..."
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />
-        <select className="priority-select" value={priority} onChange={(e) => setPriority(e.target.value)}>
-          <option value="red">🔴 High Priority</option>
-          <option value="orange">🟠 Medium Priority</option>
-          <option value="green">🟢 Low Priority</option>
+        <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
         </select>
-        <button className="add-button" onClick={handleAddTask}>Add</button>
-        <ul className="task-list">
-          {tasks.map((t, index) => (
-            <li key={index} className="task-item" style={{ borderColor: t.priority }}>
-              {t.text} ({priorityEmojis[t.priority]}) 
-              <button className="delete-button" onClick={() => handleDeleteTask(index)}>Delete</button>
-            </li>
-          ))}
-        </ul>
+        <button onClick={addTask}>+</button>
+      </div>
+      <div className="task-list">
+        {tasks.length === 0 ? (
+          <p className="no-tasks">No tasks yet. Add some to get started!</p>
+        ) : (
+          tasks.map((t, index) => (
+            <div key={index} className="task-item">
+              <span>{t.text}</span> <span className={`priority-${t.priority.toLowerCase()}`}>{t.priority}</span>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
