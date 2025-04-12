@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../Styles/Settings.css";
+import '../Styles/Settings.css';
 
 const Settings = ({ updateDurations }) => {
   const [focus, setFocus] = useState(25);

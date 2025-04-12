@@ -1,11 +1,10 @@
 import React from 'react';
-import '../Styles/TimeControls.css';
 
 const TimeControls = ({ isActive, toggleTimer }) => {
   return (
-    <div className="controls-container">
-      <button className="control-btn" onClick={toggleTimer}>
-        {isActive ? 'Pause' : 'Play'}
+    <div className="time-controls">
+      <button className="start-button" onClick={toggleTimer}>
+        {isActive ? 'Timer Active' : 'Start Timer'}
       </button>
     </div>
   );

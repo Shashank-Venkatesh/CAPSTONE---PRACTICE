@@ -1,3 +1,4 @@
+import "./App.css"
 import React, { useState } from 'react';
 import FocusTime from "./Components/Time/FocusTime";
 import ShortBreak from "./Components/Time/ShortBreak";
@@ -13,30 +14,56 @@ const App = () => {
     shortBreak: 5,
     longBreak: 15
   });
+  const [focusStreak, setFocusStreak] = useState(0);
+  const [cycleCount, setCycleCount] = useState(0);
 
-  const toggleTimer = () => setIsActive(!isActive);
+  const playSound = () => {
+    const audio = new Audio('../Public/Notification/notification.mp3');
+    audio.play();
+  };
 
   const handleComplete = () => {
+    playSound();
     setIsActive(false);
-    if (mode === 'focus') setMode('shortBreak');
-    else if (mode === 'shortBreak') setMode('longBreak');
-    else setMode('focus');
+
+    if (mode === 'focus') {
+      const updatedStreak = focusStreak + 1;
+      setFocusStreak(updatedStreak);
+      const updatedCycle = cycleCount + 1;
+      setCycleCount(updatedCycle);
+
+      if (updatedCycle % 4 === 0) {
+        setMode('longBreak');
+      } else {
+        setMode('shortBreak');
+      }
+    } else {
+      setMode('focus');
+    }
   };
 
   const updateDurations = (newDurations) => {
-    setIsActive(false); // 🔁 Reset timer on settings change
+    setIsActive(false);
     setDuration(newDurations);
   };
 
+  const handleGiveUp = () => {
+    setIsActive(false);
+    setFocusStreak(0);
+    setCycleCount(0);
+  };
+
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
+    <div className="app-container">
       <h1>FocusTroop Pomodoro</h1>
+      <p>Focus 🔥: {focusStreak}</p>
 
       {mode === 'focus' && (
         <FocusTime
           duration={durations.focus}
           isActive={isActive}
           onComplete={handleComplete}
+          onGiveUp={handleGiveUp}
         />
       )}
 
@@ -56,7 +83,7 @@ const App = () => {
         />
       )}
 
-      <TimeControls isActive={isActive} toggleTimer={toggleTimer} />
+      <TimeControls isActive={isActive} toggleTimer={() => setIsActive(true)} />
       <Settings updateDurations={updateDurations} />
     </div>
   );

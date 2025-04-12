@@ -1,11 +1,9 @@
-// src/components/FocusTime.jsx
 import React, { useState, useEffect } from 'react';
 import '../Styles/FocusTime.css';
 
-const FocusTime = ({ duration = 25, isActive, onComplete }) => {
+const FocusTime = ({ duration = 25, isActive, onComplete, onGiveUp }) => {
   const [secondsLeft, setSecondsLeft] = useState(duration * 60);
 
-  // 🔁 Update timer when duration changes
   useEffect(() => {
     setSecondsLeft(duration * 60);
   }, [duration]);
@@ -22,6 +20,11 @@ const FocusTime = ({ duration = 25, isActive, onComplete }) => {
     return () => clearInterval(timer);
   }, [isActive, secondsLeft, onComplete]);
 
+  const handleGiveUp = () => {
+    setSecondsLeft(duration * 60);
+    onGiveUp();
+  };
+
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -32,6 +35,7 @@ const FocusTime = ({ duration = 25, isActive, onComplete }) => {
     <div className="focus-container">
       <h2>Focus Time</h2>
       <div className="timer">{formatTime(secondsLeft)}</div>
+      <button className="give-up-button" onClick={handleGiveUp}>Give Up</button>
     </div>
   );
 };
