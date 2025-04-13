@@ -5,7 +5,10 @@
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  
+  transform: translate(300px, -700px); /* Right and upward shift */
 }
+
 
 .task-header {
   background: #8854d0;
@@ -70,4 +73,12 @@
 
 .priority-low {
   color: green;
+}
+
+@media (max-width: 500px) {
+  .task-container {
+    transform: none;
+    margin: 10px auto;
+    width: 90%;
+  }
 }

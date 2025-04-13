@@ -1,0 +1,232 @@
+/* General Styles */
+:root {
+  --black: #000000;
+  --dark-purple: #54158C;
+  --white: #FFFFFF;
+  --light-gray: #D9D9D9;
+  --soft-purple: #9F7AEA;
+  --muted-gray: #808080;
+  --lavender: #EBD4FF;
+
+  --font-main: 'Inter', sans-serif;
+  --font-timer: 'JetBrains Mono', monospace;
+  --radius: 1.25rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--lavender);
+  color: var(--black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Full Control Wrapper for Timer and Tasks (Side-by-Side Layout) */
+.full-control-wrapper {
+  display: flex;
+  justify-content: flex-start; /* Align items at the start (left) */
+  align-items: flex-start; /* Align items at the top */
+  width: 100%;
+  max-width: 1200px; /* Optional: Set max width to prevent stretching */
+  padding: 2rem;
+  gap: 3rem; /* Adjust space between the timer and tasks */
+  transform: translate(-300px, 100px)
+}
+
+/* Timer Section Styles (FullControl) */
+.app-container {
+  background-color: var(--white);
+  padding: 2.5rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--light-gray);
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  /* Keeping the width the same */
+}
+
+/* Timer Title */
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--dark-purple);
+  margin-bottom: 1.5rem;
+}
+
+/* Timer Display */
+.timer-display {
+  font-family: var(--font-timer);
+  font-size: 5rem;
+  color: var(--soft-purple);
+  margin: 2rem 0;
+  letter-spacing: 2px;
+}
+
+/* Session styling with palette */
+.focus-session .timer-display {
+  color: var(--dark-purple);
+}
+
+.short-break-session .timer-display {
+  color: var(--soft-purple);
+}
+
+.long-break-session .timer-display {
+  color: var(--dark-purple);
+}
+
+/* Button Styling */
+button {
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+}
+
+button.primary {
+  background-color: var(--dark-purple);
+  color: var(--white);
+}
+
+button.primary:hover {
+  background-color: var(--soft-purple);
+  color: var(--black);
+}
+
+button.secondary {
+  background-color: var(--light-gray);
+  color: var(--black);
+}
+
+button.secondary:hover {
+  background-color: var(--muted-gray);
+  color: var(--white);
+}
+
+button.danger {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+button.danger:hover {
+  background-color: var(--muted-gray);
+  color: var(--white);
+}
+
+/* Labels & Meta Text */
+.session-label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--muted-gray);
+  margin-top: 0.5rem;
+}
+
+
+
+
+
+
+/* Task Section Styles (Todos) */
+.task-container {
+  background-color: var(--white);
+  padding: 3rem;
+  border-radius: var(--radius);
+  border: 2px solid var(--light-gray);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: translate(300px, -690px);
+}
+
+.task-header {
+  font-size: 1.8rem;
+  color: var(--dark-purple);
+  margin-bottom: 1rem;
+}
+
+.task-input input {
+  width: 70%; /* Adjust the width as needed */
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.task-input select {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.task-input button {
+  padding: 0.5rem 1rem;
+  background-color: var(--dark-purple);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+}
+
+.task-input {
+  display: flex;         /* Align children (input, select, button) horizontally */
+  align-items: center;   /* Vertically center them */
+  gap: 0.5rem;           /* Add spacing between them */
+  justify-content: flex-start; /* Align all elements to the left */
+  width: 100%; /* Ensure the input and button use full width */
+}
+
+.task-list {
+  margin-top: 1rem;
+}
+
+.task-item {
+  background-color: var(--light-gray);
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border-radius: var(--radius);
+  display: flex;
+  justify-content: space-between; /* Aligns the content on both ends */
+  align-items: center;
+}
+
+.priority {
+  font-weight: 600;
+}
+
+.priority-high {
+  color: red;
+}
+
+.priority-medium {
+  color: orange;
+}
+
+.priority-low {
+  color: green;
+}
+
+.no-tasks {
+  font-style: italic;
+  color: var(--muted-gray);
+}
+
+/* Responsive Styles for Tasks */
+@media (max-width: 768px) {
+  .full-control-wrapper {
+    flex-direction: column; /* Stacks them vertically on smaller screens */
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .task-item {
+    flex-direction: column; /* Stack text and priority vertically on smaller screens */
+    align-items: flex-start; /* Align items to the start */
+  }
+
+  .priority {
+    margin-top: 0.5rem; /* Adds spacing between task description and priority */
+  }
+}
